@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import dev.tr7zw.config.CustomConfigScreen;
-import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Option;
 import net.minecraft.client.gui.screens.Screen;
 
 public abstract class GraphUtilModBase {
@@ -62,11 +62,11 @@ public abstract class GraphUtilModBase {
 
             @Override
             public void initialize() {
-                List<OptionInstance<?>> options = new ArrayList<>();
+                List<Option> options = new ArrayList<>();
                 options.add(getOnOffOption("text.graphutil.vanillaScale", () -> config.vanillaScale,
                         (b) -> config.vanillaScale = b));
               
-                getOptions().addSmall(options.toArray(new OptionInstance[0]));
+                getOptions().addSmall(options.toArray(new Option[0]));
 
             }
 
