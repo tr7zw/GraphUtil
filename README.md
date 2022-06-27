@@ -10,7 +10,7 @@ Adds more settings to the F3 FPS graph to make it more useful for finding perfor
 
 ## Compatibility
 
-__This is still work in progress software! Pplease report issues!__
+__This is still work in progress software! Please report issues!__
 
 ### Tested and working with
 
