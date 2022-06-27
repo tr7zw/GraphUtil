@@ -1,4 +1,5 @@
 {
     "text.graphutil.title": "GraphUtil",
-    "text.graphutil.vanillaScale": "Vanilla  Graph Scale"
+    "text.graphutil.vanillaScale": "Vanilla  Graph Scale",
+    "text.graphutil.alwaysShowGraph": "Always Show Graph"
   }

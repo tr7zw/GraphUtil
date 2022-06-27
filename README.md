@@ -1,45 +1,25 @@
-# FasterGUI
+# GraphUtil
 
-__Render the HUD and screens at a lower framerate to speed up what's really important: the worldrendering.__
+Adds more settings to the F3 FPS graph to make it more useful for finding performance issues.
 
-Renders the HUD at a lower fixed Framerate(configurable in the settings), freeing up cpu and gpu time for the world rendering. There is no good reason to render the hotbar at 100+ fps.
+## Features
+
+- Show min/max/avg frametimes with decimalpoints
+- Optionally scale the graph to the min/max size, so it's still readable in the <5ms range. Also showing a line for the avg times.
+- Option to always show graphs on the debug screen without ALT+SHIFT+F3.
 
 ## Compatibility
 
-__This is still work in progress software! There will be issues, please report them!__
-
-### Affected vanilla features
-
-- Overlays except Vignette(Pumpkin, freezing, spyglass, portal...)
-- Hotbar(all parts of it)
-- Crosshair
-- Bossbars
-- Debug Screen(F3)
-- Titles
-- Scoreboard
-- Chat
+__This is still work in progress software! Pplease report issues!__
 
 ### Tested and working with
 
 - Sodium
 - Iris
-- Optifine
-- AppleSkin
-- Better Ping Display
-- Chat Heads
-- Detail Armor Bar
-- wthit(What the hell is that?)
-- JourneyMap
-- ToroHealth Damage Indicator
-- BetterF3
 
 ### Not compatible
 
-- VulkanMod
-
-### Screen setting notice
-
-This feature is still not done(disabled by default) and has mainly transparency issues. It heavily speeds up mods like REI(Roughly Enough Items), but with visual issues.
+- ?
 
 ## License
 

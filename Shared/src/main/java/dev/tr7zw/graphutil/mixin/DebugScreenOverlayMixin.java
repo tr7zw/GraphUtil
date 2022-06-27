@@ -41,6 +41,13 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
     private DecimalFormat df = new DecimalFormat("0.00");
 
+    @Inject(method = "render", at = @At("HEAD"))
+    public void render(PoseStack poseStack, CallbackInfo ci) {
+        if(GraphUtilModBase.instance.config.alwaysShowGraph) {
+            this.minecraft.options.renderFpsChart = true;
+        }
+    }
+    
     @Inject(method = "drawChart", at = @At("HEAD"), cancellable = true)
     private void drawChart(PoseStack poseStack, FrameTimer frameTimer, int i, int j, boolean fpsGraph,
             CallbackInfo ci) {
