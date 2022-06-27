@@ -2,17 +2,17 @@ version: '0.0.1'
 source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.18.2-shared/"
 replacements:
   group: "dev.tr7zw"
-  name: "FasterGUI"
-  id: "fastergui"
+  name: "GraphUtil"
+  id: "graphutil"
   version: "1.0.0"
   author: "tr7zw"
   dependencies: ""
-  relocationpackage: "dev.tr7zw.fastergui"
+  relocationpackage: "dev.tr7zw.graphutil"
   licensename: "LICENSE"
 rootProject:
   template: "."
 subProjects:
-  FG-Fabric:
+  GU-Fabric:
     template: "Fabric"
-  FG-Forge:
+  GU-Forge:
     template: "Forge"

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.tr7zw.graphutil.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "refmap": "graphutil.refmap.mixins.json",
+  "mixins": [
+  ],
+  "client": [
+    "DebugScreenOverlayMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

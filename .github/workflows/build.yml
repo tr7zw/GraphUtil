@@ -35,5 +35,5 @@ jobs:
         with:
           name: Artifacts
           path: |
-            FG-Fabric/build/libs/*
-            FG-Forge/build/libs/*
+            GU-Fabric/build/libs/*
+            GU-Forge/build/libs/*
