@@ -4,8 +4,9 @@ Adds more settings to the F3 FPS graph to make it more useful for finding perfor
 
 ## Features
 
-- Show min/max/avg frametimes with decimalpoints
-- Optionally scale the graph to the min/max size, so it's still readable in the <5ms range. Also showing a line for the avg times.
+- Show min/max/avg frametimes with decimalpoints.
+- Optionally scale the graph to the min/max size, so it's still readable in the <5ms range.
+- Show a line for the avg times.
 - Option to always show graphs on the debug screen without ALT+SHIFT+F3.
 
 ## Compatibility
