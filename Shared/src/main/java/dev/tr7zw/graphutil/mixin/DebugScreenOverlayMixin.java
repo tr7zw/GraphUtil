@@ -66,7 +66,7 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
         m = frameTimer.wrapIndex(m + o);
 
-        float q = 0f;
+        float totalMs = 0f;
         float minMs = Integer.MAX_VALUE;
         float maxMs = Integer.MIN_VALUE;
         int t;
@@ -74,7 +74,7 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
             float u = ls[frameTimer.wrapIndex(m + t)] / 1000000f;
             minMs = Math.min(minMs, u);
             maxMs = Math.max(maxMs, u);
-            q += u;
+            totalMs += u;
 
         }
         t = this.minecraft.getWindow().getGuiScaledHeight();
@@ -131,11 +131,16 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
         vLine(poseStack, i, t - 60, t, -1);
         vLine(poseStack, i + p - 1, t - 60, t, -1);
 
-        if(!vanillaScale)
-            hLine(poseStack, i, i + p - 1,  t - 1 - (int)(((q / p)-minMs)/scaled*60f), -16711681);
+        if(!vanillaScale) {
+            hLine(poseStack, i, i + p - 1,  t - 1 - (int)(((totalMs / p)-minMs)/scaled*60f), -16711681);
+            this.font.drawShadow(poseStack, "avg", (i + p), t - 6 - (int)(((totalMs / p)-minMs)/scaled*60f), 14737632);
+        } else {
+            hLine(poseStack, i, i + p - 1,  t - 1 - frameTimer.scaleSampleTo((long) (totalMs * 1000000 / p), 30, 60), -16711681);
+            this.font.drawShadow(poseStack, "avg", (i + p), t - 6 - frameTimer.scaleSampleTo((long) (totalMs * 1000000 / p), 30, 60), 14737632);
+        }
         
         String string = "" + df.format(minMs) + " ms min";
-        String string2 = "" + df.format(q / p) + " ms avg";
+        String string2 = "" + df.format(totalMs / p) + " ms avg";
         String string3 = "" + df.format(maxMs) + " ms max";
         Objects.requireNonNull(this.font);
         this.font.drawShadow(poseStack, string, (i + 2), (t - 60 - 9), 14737632);
