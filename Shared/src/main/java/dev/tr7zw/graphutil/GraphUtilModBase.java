@@ -65,6 +65,8 @@ public abstract class GraphUtilModBase {
                 List<OptionInstance<?>> options = new ArrayList<>();
                 options.add(getOnOffOption("text.graphutil.vanillaScale", () -> config.vanillaScale,
                         (b) -> config.vanillaScale = b));
+                options.add(getOnOffOption("text.graphutil.preventClipping", () -> config.preventClipping,
+                        (b) -> config.preventClipping = b));
                 options.add(getOnOffOption("text.graphutil.alwaysShowGraph", () -> config.alwaysShowGraph,
                         (b) -> config.alwaysShowGraph = b));
               

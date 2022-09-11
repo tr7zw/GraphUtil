@@ -92,6 +92,7 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
         Matrix4f matrix4f = Transformation.identity().getMatrix();
 
+        boolean preventClipping = GraphUtilModBase.instance.config.preventClipping;
         float scaled = maxMs - minMs;
         while (m != l) {
             float ms = ls[m] / 1000000f;
@@ -105,9 +106,10 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
             int aa = x >> 8 & 0xFF;
             int ab = x & 0xFF;
 
+            int size = preventClipping ? Math.min(v, 60) : v;
             bufferBuilder.vertex(matrix4f, (n + 1), t, 0.0F).color(z, aa, ab, y).endVertex();
-            bufferBuilder.vertex(matrix4f, (n + 1), (t - v + 1), 0.0F).color(z, aa, ab, y).endVertex();
-            bufferBuilder.vertex(matrix4f, n, (t - v + 1), 0.0F).color(z, aa, ab, y).endVertex();
+            bufferBuilder.vertex(matrix4f, (n + 1), (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
+            bufferBuilder.vertex(matrix4f, n, (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
             bufferBuilder.vertex(matrix4f, n, t, 0.0F).color(z, aa, ab, y).endVertex();
 
             n++;
@@ -135,8 +137,11 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
             hLine(poseStack, i, i + p - 1,  t - 1 - (int)(((totalMs / p)-minMs)/scaled*60f), -16711681);
             this.font.drawShadow(poseStack, "avg", (i + p), t - 6 - (int)(((totalMs / p)-minMs)/scaled*60f), 14737632);
         } else {
-            hLine(poseStack, i, i + p - 1,  t - 1 - frameTimer.scaleSampleTo((long) (totalMs * 1000000 / p), 30, 60), -16711681);
-            this.font.drawShadow(poseStack, "avg", (i + p), t - 6 - frameTimer.scaleSampleTo((long) (totalMs * 1000000 / p), 30, 60), 14737632);
+            int avgValue = frameTimer.scaleSampleTo((long) (totalMs * 1000000 / p), 30, 60);
+            if(!(preventClipping && avgValue > 60)) {
+                hLine(poseStack, i, i + p - 1,  t - 1 - avgValue, -16711681);
+                this.font.drawShadow(poseStack, "avg", (i + p), t - 6 - avgValue, 14737632);
+            }
         }
         
         String string = "" + df.format(minMs) + " ms min";
