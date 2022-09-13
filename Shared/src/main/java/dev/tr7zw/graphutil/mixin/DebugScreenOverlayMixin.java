@@ -214,7 +214,8 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
             n++;
             m = frameTimer.wrapIndex(m + 1);
         }
-        BufferUploader.drawWithShader(bufferBuilder.end());
+        bufferBuilder.end();
+        BufferUploader.end(bufferBuilder);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
 
