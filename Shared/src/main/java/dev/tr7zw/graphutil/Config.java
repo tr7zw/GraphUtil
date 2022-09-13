@@ -6,5 +6,6 @@ public class Config {
     public boolean vanillaScale = true;
     public boolean preventClipping = true;
     public boolean alwaysShowGraph = false;
+    public boolean hideTPS = false;
     
 }

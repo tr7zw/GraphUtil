@@ -52,6 +52,10 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
     private void drawChart(PoseStack poseStack, FrameTimer frameTimer, int i, int j, boolean fpsGraph,
             CallbackInfo ci) {
         if (!fpsGraph) {
+            if(!GraphUtilModBase.instance.config.hideTPS) {
+                drawServerChart(poseStack, frameTimer, i, j);
+            }
+            ci.cancel();
             return;
         }
         RenderSystem.disableDepthTest();
@@ -156,6 +160,87 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
         RenderSystem.enableDepthTest();
         ci.cancel();
+    }
+    
+    private void drawServerChart(PoseStack poseStack, FrameTimer frameTimer, int i, int j) {
+        RenderSystem.disableDepthTest();
+        int k = frameTimer.getLogStart();
+        int l = frameTimer.getLogEnd();
+        long[] ls = frameTimer.getLog();
+        int m = k;
+        int n = i;
+        int o = Math.max(0, ls.length - j);
+        int p = ls.length - o;
+        m = frameTimer.wrapIndex(m + o);
+        float totalMs = 0f;
+        float minMs = Integer.MAX_VALUE;
+        float maxMs = Integer.MIN_VALUE;
+        int count = 0;
+        int t;
+        for (t = 0; t < p; t++) {
+            float u = ls[frameTimer.wrapIndex(m + t)] / 1000000f;
+            if(u == 0)continue;
+            minMs = Math.min(minMs, u);
+            maxMs = Math.max(maxMs, u);
+            totalMs += u;
+            count++;
+        }
+        t = this.minecraft.getWindow().getGuiScaledHeight();
+        fill(poseStack, i, t - 60, i + p, t, -1873784752);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.defaultBlendFunc();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        Matrix4f matrix4f = Transformation.identity().getMatrix();
+        
+        boolean preventClipping = GraphUtilModBase.instance.config.preventClipping;
+        
+        while (m != l) {
+            int i1 = frameTimer.scaleSampleTo(ls[m], 60, 20);
+            int w = 60;
+            int x = getSampleColor(Mth.clamp(i1, 0, w), 0, w / 2, w);
+            int y = x >> 24 & 0xFF;
+            int z = x >> 16 & 0xFF;
+            int aa = x >> 8 & 0xFF;
+            int ab = x & 0xFF;
+            int size = preventClipping ? Math.min(i1, 60) : i1;
+            bufferBuilder.vertex(matrix4f, (n + 1), t, 0.0F).color(z, aa, ab, y).endVertex();
+            bufferBuilder.vertex(matrix4f, (n + 1), (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
+            bufferBuilder.vertex(matrix4f, n, (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
+            bufferBuilder.vertex(matrix4f, n, t, 0.0F).color(z, aa, ab, y).endVertex();
+            n++;
+            m = frameTimer.wrapIndex(m + 1);
+        }
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+
+        fill(poseStack, i + 1, t - 60 + 1, i + 14, t - 60 + 10, -1873784752);
+        this.font.draw(poseStack, "20 TPS", (i + 2), (t - 60 + 2), 14737632);
+        hLine(poseStack, i, i + p - 1, t - 60, -1);
+
+        hLine(poseStack, i, i + p - 1, t - 1, -1);
+        vLine(poseStack, i, t - 60, t, -1);
+        vLine(poseStack, i + p - 1, t - 60, t, -1);
+
+        int avgValue = frameTimer.scaleSampleTo((long) (totalMs * 1000000 / count), 60, 20);
+        if(!(preventClipping && avgValue > 60)) {
+            hLine(poseStack, i, i + p - 1,  t - 1 - avgValue, -16711681);
+            this.font.drawShadow(poseStack, "avg", (i -18), t - 6 - avgValue, 14737632);
+        }
+        
+        String string = "" + df.format(minMs) + " ms min";
+        String string2 = "" + df.format(totalMs / p) + " ms avg";
+        String string3 = "" + df.format(maxMs) + " ms max";
+        Objects.requireNonNull(this.font);
+        this.font.drawShadow(poseStack, string, (i + 2), (t - 60 - 9), 14737632);
+        Objects.requireNonNull(this.font);
+        this.font.drawShadow(poseStack, string2, (i + p / 2 - this.font.width(string2) / 2), (t - 60 - 9), 14737632);
+        Objects.requireNonNull(this.font);
+        this.font.drawShadow(poseStack, string3, (i + p - this.font.width(string3)), (t - 60 - 9), 14737632);
+        RenderSystem.enableDepthTest();
     }
 
     @Shadow

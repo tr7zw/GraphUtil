@@ -69,6 +69,8 @@ public abstract class GraphUtilModBase {
                         (b) -> config.preventClipping = b));
                 options.add(getOnOffOption("text.graphutil.alwaysShowGraph", () -> config.alwaysShowGraph,
                         (b) -> config.alwaysShowGraph = b));
+                options.add(getOnOffOption("text.graphutil.hideTPS", () -> config.hideTPS,
+                        (b) -> config.hideTPS = b));
               
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
 
