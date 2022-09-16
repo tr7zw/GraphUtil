@@ -1,5 +1,6 @@
 package dev.tr7zw.graphutil;
 
+import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +22,10 @@ public class GraphUtilMod extends GraphUtilModBase {
             return;
         }
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiFactory.class,
+                () -> new ConfigGuiFactory((mc, screen) -> {
+                    return createConfigScreen(screen);
+                }));
     }
 
     private void setup(final FMLCommonSetupEvent event) {
