@@ -2,21 +2,14 @@ modLoader="javafml"
 loaderVersion="[35,)"
 license="tr7zw Protective License"
 [[mods]]
-modId="entityculling"
-version="1.5.1"
-displayName="EntityCulling"
+modId="graphutil"
+version="1.0.0"
+displayName="GraphUtil"
 authors="tr7zw"
 description='''
-Using async raytracing to hide Tile-/Entities that are hidden behind solid blocks.
+Adds more settings to the F3 graphs.
 '''
-[[dependencies.entityculling]] #optional
-    modId="forge"
-    mandatory=true
-    versionRange="[35,)"
-    ordering="NONE"
-    side="CLIENT"
-# Here's another dependency
-[[dependencies.entityculling]]
+[[dependencies.graphutil]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19,)"
