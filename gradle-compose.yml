@@ -1,5 +1,5 @@
 version: '0.0.1'
-source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19/"
+source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.3-mcpublish/"
 replacements:
   group: "dev.tr7zw"
   name: "GraphUtil"
@@ -9,6 +9,8 @@ replacements:
   dependencies: ""
   relocationpackage: "dev.tr7zw.graphutil"
   licensename: "LICENSE"
+  curseforgeid: "681955"
+  modrinthid: "cpBmCs66"
 rootProject:
   template: "."
 subProjects:
