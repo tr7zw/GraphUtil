@@ -1,6 +1,9 @@
 package dev.tr7zw.graphutil;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -39,6 +42,14 @@ public class GraphUtilMod extends GraphUtilModBase {
                 () -> new IExtensionPoint.DisplayTest(
                         () -> ModLoadingContext.get().getActiveContainer().getModInfo().getVersion().toString(),
                         (remote, isServer) -> true));
+        MinecraftForge.EVENT_BUS.addListener(this::doClientTick);
+    }
+    
+    private void doClientTick(ClientTickEvent event) {
+        // stupid workaround to stupid Forge behavior
+        if(GraphUtilModBase.instance.config.alwaysShowGraph) {
+            Minecraft.getInstance().options.renderFpsChart = true;
+        }
     }
 
 }
