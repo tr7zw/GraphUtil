@@ -1,5 +1,5 @@
-version: '0.0.1'
-source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.3-mcpublish/"
+version: '0.0.2'
+source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.4"
 replacements:
   group: "dev.tr7zw"
   name: "GraphUtil"
@@ -11,6 +11,12 @@ replacements:
   licensename: "LICENSE"
   curseforgeid: "681955"
   modrinthid: "cpBmCs66"
+enabledFlags:
+  - autopublish
+  - publishFabric
+  - publishForge
+  - modrinth
+  - curseforge
 rootProject:
   template: "."
 subProjects:

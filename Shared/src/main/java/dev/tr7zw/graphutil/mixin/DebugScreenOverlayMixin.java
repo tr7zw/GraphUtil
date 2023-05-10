@@ -90,7 +90,6 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
@@ -121,7 +120,6 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
 
         }
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.enableTexture();
         RenderSystem.disableBlend();
         
         if (vanillaScale) {
@@ -190,7 +188,6 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.enableBlend();
-        RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         Matrix4f matrix4f = Transformation.identity().getMatrix();
@@ -214,7 +211,6 @@ public abstract class DebugScreenOverlayMixin extends GuiComponent {
             m = frameTimer.wrapIndex(m + 1);
         }
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.enableTexture();
         RenderSystem.disableBlend();
 
         fill(poseStack, i + 1, t - 60 + 1, i + 14, t - 60 + 10, -1873784752);
