@@ -12,6 +12,6 @@ Adds more settings to the F3 graphs.
 [[dependencies.graphutil]]
     modId="minecraft"
     mandatory=true
-    versionRange="1.19.4"
+    versionRange="1.20"
     ordering="NONE"
     side="CLIENT"
