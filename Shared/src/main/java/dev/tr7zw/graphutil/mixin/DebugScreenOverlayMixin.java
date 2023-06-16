@@ -93,7 +93,6 @@ public abstract class DebugScreenOverlayMixin {
         RenderSystem.defaultBlendFunc();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-        Matrix4f matrix4f = Transformation.identity().getMatrix();
 
         boolean preventClipping = GraphUtilModBase.instance.config.preventClipping;
         float scaled = maxMs - minMs;
@@ -104,16 +103,8 @@ public abstract class DebugScreenOverlayMixin {
             int w = 100;
             int x = getSampleColor(Mth.clamp(v, 0, w), 0, w / 2, w);
 
-            int y = x >> 24 & 0xFF;
-            int z = x >> 16 & 0xFF;
-            int aa = x >> 8 & 0xFF;
-            int ab = x & 0xFF;
-
             int size = preventClipping ? Math.min(v, 60) : v;
-            bufferBuilder.vertex(matrix4f, (n + 1), t, 0.0F).color(z, aa, ab, y).endVertex();
-            bufferBuilder.vertex(matrix4f, (n + 1), (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
-            bufferBuilder.vertex(matrix4f, n, (t - size + 1), 0.0F).color(z, aa, ab, y).endVertex();
-            bufferBuilder.vertex(matrix4f, n, t, 0.0F).color(z, aa, ab, y).endVertex();
+            guiGraphics.fill(RenderType.guiOverlay(), n, t - size, n + 1, t, x);
 
             n++;
             m = frameTimer.wrapIndex(m + 1);
